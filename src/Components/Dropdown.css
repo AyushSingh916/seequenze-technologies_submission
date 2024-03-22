@@ -1,0 +1,11 @@
+.dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    width: 160px; /* Adjust width as needed */
+    background-color: #f9f9f9; /* Change background color to a lighter shade */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

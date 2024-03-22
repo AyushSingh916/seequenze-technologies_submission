@@ -1,0 +1,22 @@
+.sidebar-btn {
+    display: flex;
+}
+
+.sidebar-btn button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff;
+    color: black;
+    border: none;
+}
+
+.sidebar-btn button:hover {
+    font-weight: bold;
+}
+
+.sidebar-btn img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}

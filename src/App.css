@@ -1,0 +1,26 @@
+/* App.css */
+
+.App {
+  display: flex;
+}
+
+.SideBar {
+  width: 200px;
+  height: 100vh; 
+  position: sticky;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.View {
+  flex: 1; /* Expands to fill remaining space */
+  padding: 20px; /* Example padding */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
