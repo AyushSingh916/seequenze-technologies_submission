@@ -36,6 +36,7 @@ const Modal = ({ onClose }) => {
       });
   
       onClose(); // Close the modal after submission
+      window.location.reload();
     } catch (error) {
       console.error('Error adding project to Firestore:', error);
     }

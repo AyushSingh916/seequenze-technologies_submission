@@ -5,37 +5,34 @@ import './Project.css';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const Project = ({ project }) => {
+const Project = ({ project, onUpdate }) => { // Pass onUpdate as prop
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedProject, setEditedProject] = useState({ ...project });
 
   const handleEdit = () => {
-    // Open the modal for editing
-    setIsModalOpen(true);
+    setIsModalOpen(true); // Open the modal for editing
   };
 
   const handleDelete = async () => {
     try {
-      // Delete the project from Firestore
-      await deleteDoc(doc(db, 'projects', project.id));
+      await deleteDoc(doc(db, 'projects', project.id)); // Delete the project from Firestore
       console.log('Project deleted successfully');
+      onUpdate(editedProject, "DELETE"); // Update UI after deletion
     } catch (error) {
       console.error('Error deleting project:', error);
     }
   };
 
   const handleModalClose = () => {
-    // Close the modal
-    setIsModalOpen(false);
+    setIsModalOpen(false); // Close the modal
   };
 
   const handleSaveChanges = async () => {
     try {
-      // Update the project in Firestore
-      await updateDoc(doc(db, 'projects', project.id), editedProject);
+      await updateDoc(doc(db, 'projects', project.id), editedProject); // Update the project in Firestore
       console.log('Project updated successfully');
-      // Close the modal after saving changes
-      setIsModalOpen(false);
+      setIsModalOpen(false); // Close the modal after saving changes
+      onUpdate(editedProject, "UPDATE"); // Update UI after updating
     } catch (error) {
       console.error('Error updating project:', error);
     }
