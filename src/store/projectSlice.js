@@ -12,6 +12,7 @@ const projectSlice = createSlice({
   reducers: {
     addProject: (state, action) => {
       state.projects.push(action.payload);
+      console.log(state.projects);
     },
     updateProject: (state, action) => {
       const { id, updatedProject } = action.payload;
