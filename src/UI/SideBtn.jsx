@@ -1,11 +1,11 @@
 import "./SideBtn.css";
 
-const SideButton = ({ path, text }) => {
+const SideButton = ({ svg, text }) => {
 
   return (
     <div className="sidebar-btn">
       <button>
-        <img src={path}></img>
+        {svg}
         <p>{text}</p>
       </button>
     </div>
