@@ -33,3 +33,9 @@
     background-color: transparent;
     background: none;
 }
+
+.trial {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

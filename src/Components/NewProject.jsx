@@ -24,7 +24,7 @@ const NewProject = () => {
     <div className="new-project">
       <button onClick={handleModalOpen}>
         <Card
-          imageUrl="src\assets\BG.png"
+          imageUrl="/public/BG.png"
           title="Create New Project"
           description="Click to create a new project."
         />

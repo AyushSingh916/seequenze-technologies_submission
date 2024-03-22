@@ -12,9 +12,16 @@ export default function Header() {
   return (
     <div className="nav">
       <div className="nav-right">
-        <a href="#">
-          <strong>Free Trial |</strong> 2 days left
-        </a>
+        <div className="trial">
+          <a href="#">
+            <strong>Free Trial |</strong> 2 days left
+          </a>
+          <p
+            style={{ fontWeight: "bold", color: "orange" }}
+          >
+            Extend Free Trial
+          </p>
+        </div>
         <img src="src\assets\Ellipse 1.png" />
         <button onClick={toggleDropdown}>
           <svg
@@ -34,7 +41,6 @@ export default function Header() {
         </button>
         {showDropdown && <Dropdown onClose={toggleDropdown} />}
       </div>
-      <p className="orange-text">Extend Free Trial</p>
     </div>
   );
 }
