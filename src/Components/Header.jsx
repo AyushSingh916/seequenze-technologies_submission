@@ -1,5 +1,6 @@
 import Dropdown from "./Dropdown";
 import { useState } from "react";
+import userImg from "../assets/user.jpeg";
 
 import "./Header.css";
 
@@ -20,7 +21,7 @@ export default function Header() {
             Extend Free Trial
           </p>
         </div>
-        <img src="public/user.jpg" alt="user-image" />
+        <img src={userImg} alt="user-image" className="user-image"/>
         <button onClick={toggleDropdown}>
           <svg
             width="12"

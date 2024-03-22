@@ -39,3 +39,10 @@
     flex-direction: column;
     gap: 5px;
 }
+
+.user-image {
+    width: 2.25rem;
+    height: 2.25rem; 
+    border-radius: 9999px; 
+    object-fit: cover; 
+  }
