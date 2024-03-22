@@ -20,9 +20,7 @@ export default function Header() {
             Extend Free Trial
           </p>
         </div>
-        <div>
-          <img src="src\Components\Ellipse.png"/>
-        </div>
+        <img src="\src\assets\user.jpg" alt="user-image" />
         <button onClick={toggleDropdown}>
           <svg
             width="12"
