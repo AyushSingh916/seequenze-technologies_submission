@@ -1,26 +1,35 @@
-import React from 'react';
-import useFetchData from '../hooks/useFetchData.js';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../config/firebase'; 
+
 import Project from './Project';
-import "./Projects.css";
-import { useDispatch } from 'react-redux';
-import { addProject, updateProject, deleteProject } from '../store/projectSlice';
+import './Projects.css';
 
 const Projects = () => {
-  const dispatch = useDispatch();
+  const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleAddProject = () => {
-    dispatch(addProject({ id: 1, name: 'New Project' }));
-  };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsCollection = collection(db, 'projects');
+        const querySnapshot = await getDocs(projectsCollection);
+        const projectsData = [];
+        querySnapshot.forEach((doc) => {
+          projectsData.push({ id: doc.id, ...doc.data() });
+        });
+        setProjects([...projectsData]);
+        console.log(projects);
+        setIsLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+      }
+    };
 
-  const handleUpdateProject = () => {
-    dispatch(updateProject({ id: 1, updatedProject: { name: 'Updated Project' } }));
-  };
-
-  const handleDeleteProject = () => {
-    dispatch(deleteProject(1));
-  };
-
-  const { data: projects, isLoading, error } = useFetchData('https://picsum.photos/v2/list?page=1&limit=6');
+    fetchProjects();
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -30,17 +39,15 @@ const Projects = () => {
     return <div>Error: {error}</div>;
   }
 
-  {console.log(projects)}
-
   return (
     <div>
       <div className="project-list">
-        {projects && projects.map((project) => (
+        {projects.map((project) => (
           <Project key={project.id} project={project} />
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default Projects;

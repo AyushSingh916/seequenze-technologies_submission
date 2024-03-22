@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import './Modal.css';
-import { addProject } from '../store/projectSlice'; // Assuming cart-slice.js is where your Redux slice is defined
+import { db } from '../config/firebase'; // Import the Firebase Firestore instance
+import {
+  collection,
+  getDocs,
+  addDoc,
+} from "firebase/firestore";
 
 const Modal = ({ onClose }) => {
-  const dispatch = useDispatch();
-
-  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const handleImageUrlChange = (e) => {
+    setImageUrl(e.target.value);
   };
 
   const handleAuthorNameChange = (e) => {
@@ -23,20 +24,48 @@ const Modal = ({ onClose }) => {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Dispatch action to add project to Redux store
-    dispatch(addProject({ image, authorName, description }));
-    onClose(); // Close the modal after submission
+  
+    try {
+      // Add the project data to Firestore
+      await addDoc(collection(db, 'projects'), {
+        download_url: imageUrl,
+        author: authorName,
+        description,
+      });
+  
+      onClose(); // Close the modal after submission
+    } catch (error) {
+      console.error('Error adding project to Firestore:', error);
+    }
+  };  
+  
+  // Function to generate a random ID (replace with your own logic if needed)
+  const generateRandomId = () => {
+    // Generate a random string of characters
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = 10; // Adjust the length of the ID as needed
+    let randomId = '';
+    for (let i = 0; i < length; i++) {
+      randomId += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return randomId;
   };
-
+  
   return (
     <div className="modal-overlay">
       <div className="modal">
         <button className="modal-close" onClick={onClose}>Close</button>
         <div className="modal-content">
           <form onSubmit={handleSubmit}>
-            <input type="file" onChange={handleImageChange} />
+            <input
+              type="text"
+              placeholder="Image URL"
+              value={imageUrl}
+              onChange={handleImageUrlChange}
+            />
+            {imageUrl && <img src={imageUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px' }} />}
             <input
               type="text"
               placeholder="Author Name"

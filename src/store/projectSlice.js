@@ -29,4 +29,6 @@ const projectSlice = createSlice({
 });
 
 export const { addProject, updateProject, deleteProject } = projectSlice.actions;
+
+// Export only the reducer
 export default projectSlice.reducer;
