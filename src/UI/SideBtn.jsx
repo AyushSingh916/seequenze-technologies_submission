@@ -1,10 +1,10 @@
-import "./SideBtn.css";
+import React from 'react';
+import './SideBtn.css';
 
-const SideButton = ({ svg, text }) => {
-
+const SideButton = ({ svg, text, isSelected, onClick }) => {
   return (
     <div className="sidebar-btn">
-      <button>
+      <button className={isSelected ? 'selected' : ''} onClick={onClick}>
         {svg}
         <p>{text}</p>
       </button>

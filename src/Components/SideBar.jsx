@@ -1,17 +1,27 @@
-import React, { useRef } from "react";
+// SideBar.js
+
+import React, { useRef, useState } from "react";
 import SideBtn from "../UI/SideBtn";
 import "./SideBar.css";
 
 const SideBar = (props) => {
   const dialog = useRef();
+  const [collapse, setCollapse] = useState(false);
+  const [selectedBtn, setSelectedBtn] = useState(null);
 
   const handleClick = () => {
     dialog.current.showModal();
   };
 
+  const toggleCollapse = () => {
+    setCollapse(!collapse);
+    // Reset selected button when collapsing
+    setSelectedBtn(null);
+  };
+
   return (
-    <div className="SideBar">
-      <div className="upper-side-bar">
+    <div className={`SideBar ${collapse ? "collapsed" : ""}`}>
+      <div className="logo">
         <svg
           width="77"
           height="27"
@@ -52,7 +62,8 @@ const SideBar = (props) => {
             fill="#FA782F"
           />
         </svg>
-
+      </div>
+      <div className="upper-side-bar">
         <hr />
         <SideBtn
           svg={
@@ -81,7 +92,9 @@ const SideBar = (props) => {
               />
             </svg>
           }
-          text={"My Projects"}
+          isSelected={selectedBtn === 1}
+          onClick={() => setSelectedBtn(1)}
+          text={collapse ? "" : "My Project"}
         />
         <SideBtn
           svg={
@@ -110,7 +123,9 @@ const SideBar = (props) => {
               />
             </svg>
           }
-          text={"Sample Projects"}
+          isSelected={selectedBtn === 2}
+          onClick={() => setSelectedBtn(2)}
+          text={collapse ? "" : "Sample Projects"}
         />
         <hr />
         <SideBtn
@@ -132,7 +147,9 @@ const SideBar = (props) => {
               />
             </svg>
           }
-          text={"Apps"}
+          isSelected={selectedBtn === 3}
+          onClick={() => setSelectedBtn(3)}
+          text={collapse ? "" : "Apps"}
         />
         <SideBtn
           svg={
@@ -161,7 +178,9 @@ const SideBar = (props) => {
               </defs>
             </svg>
           }
-          text={"Intro to Necleo"}
+          isSelected={selectedBtn === 4}
+          onClick={() => setSelectedBtn(4)}
+          text={collapse ? "" : "Intro to Necleo"}
         />
       </div>
       <div className="lower-side-bar">
@@ -180,7 +199,9 @@ const SideBar = (props) => {
               />
             </svg>
           }
-          text={"Help & Support"}
+          isSelected={selectedBtn === 5}
+          onClick={() => setSelectedBtn(5)}
+          text={collapse ? "" : "Help & Support"}
         />
         <SideBtn
           svg={
@@ -204,25 +225,31 @@ const SideBar = (props) => {
               </defs>
             </svg>
           }
-          text={"Feedback"}
+          isSelected={selectedBtn === 6}
+          onClick={() => setSelectedBtn(6)}
+          text={collapse ? "" : "Feedback"}
         />
-        <SideBtn
-          svg={
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.54941 14.7L10.9473 15.9232C11.2383 16.1778 11.2678 16.62 11.0132 16.911C10.7586 17.2019 10.3164 17.2313 10.0254 16.9768L7.22542 14.5268C7.07351 14.394 6.98637 14.2019 6.98637 14C6.98637 13.7982 7.07351 13.6061 7.22542 13.4732L10.0254 11.0232C10.3164 10.7686 10.7586 10.7981 11.0132 11.0891C11.2678 11.38 11.2383 11.8222 10.9473 12.0768L9.54938 13.3H14.7C15.0866 13.3 15.4 13.6134 15.4 14C15.4 14.3867 15.0866 14.7 14.7 14.7H9.54941ZM25.2001 19.6C25.2001 21.1464 23.9465 22.4 22.4001 22.4H5.60005C4.05365 22.4 2.80005 21.1464 2.80005 19.6V8.40001C2.80005 6.85361 4.05365 5.60001 5.60005 5.60001H22.4001C23.9465 5.60001 25.2001 6.85361 25.2001 8.40001V19.6ZM16.8 21V7.00001H5.60005C4.82686 7.00001 4.20005 7.6268 4.20005 8.40001V19.6C4.20005 20.3732 4.82686 21 5.60005 21H16.8Z"
-                fill="#212121"
-              />
-            </svg>
-          }
-          text={"Collapse"}
-        />
+        <button className="collapse-btn" onClick={toggleCollapse}>
+          <SideBtn
+            svg={
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 28 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.54941 14.7L10.9473 15.9232C11.2383 16.1778 11.2678 16.62 11.0132 16.911C10.7586 17.2019 10.3164 17.2313 10.0254 16.9768L7.22542 14.5268C7.07351 14.394 6.98637 14.2019 6.98637 14C6.98637 13.7982 7.07351 13.6061 7.22542 13.4732L10.0254 11.0232C10.3164 10.7686 10.7586 10.7981 11.0132 11.0891C11.2678 11.38 11.2383 11.8222 10.9473 12.0768L9.54938 13.3H14.7C15.0866 13.3 15.4 13.6134 15.4 14C15.4 14.3867 15.0866 14.7 14.7 14.7H9.54941ZM25.2001 19.6C25.2001 21.1464 23.9465 22.4 22.4001 22.4H5.60005C4.05365 22.4 2.80005 21.1464 2.80005 19.6V8.40001C2.80005 6.85361 4.05365 5.60001 5.60005 5.60001H22.4001C23.9465 5.60001 25.2001 6.85361 25.2001 8.40001V19.6ZM16.8 21V7.00001H5.60005C4.82686 7.00001 4.20005 7.6268 4.20005 8.40001V19.6C4.20005 20.3732 4.82686 21 5.60005 21H16.8Z"
+                  fill="#212121"
+                />
+              </svg>
+            }
+            isSelected={selectedBtn === 7}
+            onClick={() => setSelectedBtn(7)}
+            text={collapse ? "" : "Collapse"}
+          />
+        </button>
       </div>
     </div>
   );

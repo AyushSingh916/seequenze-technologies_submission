@@ -20,3 +20,8 @@
     height: 24px;
     margin-right: 8px;
 }
+
+.sidebar-btn button.selected {
+    color: rgb(205, 133, 0);
+    font-weight: bold;
+  }
